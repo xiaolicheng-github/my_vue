@@ -3,12 +3,7 @@ import Nav from './components/nav'
 export default defineComponent({
   setup() {
     return () => (
-      <>
-      <div>
-        <Nav></Nav>
-        vue3
-      </div>
-      </>
+      <Nav></Nav>
     )
   }
 })

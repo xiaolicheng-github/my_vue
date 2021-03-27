@@ -4,6 +4,7 @@
       "libraryName": "antd",
       "libraryDirectory": "lib",
       "style": "css"
-    }]
+    }],
+    "@vue/babel-plugin-jsx"
   ]
 }
