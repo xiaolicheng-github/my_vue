@@ -14,20 +14,21 @@ import {
 } from '@ant-design/icons-vue'
 export default defineComponent({
 	setup() {
-		const collapsed = ref<Boolean>(false)
+		const collapsed = ref(false)
 		const selectedKeys= ref<string[]>(['1'])
+    console.log(collapsed.value, selectedKeys)
 		return () => (
 			<Layout style={{ minHeight: '100vh' }}>
-        <Sider v-model={[collapsed, 'collapsed']} collapsible>
+        <Sider v-model={[collapsed.value, 'collapsed']} collapsible>
           <div class="logo" />
-          <Menu theme="dark" v-model={[selectedKeys,'selectedKeys']} mode="inline">
+          <Menu theme="dark" v-model={[selectedKeys.value,'selectedKeys']} mode="inline">
             <Menu.Item key={'1'}>
 							<PieChartOutlined />
 							<span>Option 1</span>
             </Menu.Item>
             <Menu.Item key={'2'}>
-							<DesktopOutlined />
-          		<span>Option 2</span>
+              <DesktopOutlined />
+              <span>{`Option 2`}</span>
             </Menu.Item>
             <SubMenu key="sub1" title={
 							<>
@@ -53,8 +54,8 @@ export default defineComponent({
               <Menu.Item key="8">Team 2</Menu.Item>
             </SubMenu>
             <Menu.Item key="9">
-							<FileOutlined />
-          		<span>File</span>
+              <FileOutlined />
+              <span>File</span>
             </Menu.Item>
           </Menu>
         </Sider>
