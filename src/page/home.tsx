@@ -1,9 +1,9 @@
 import { defineComponent} from 'vue'
-import { RouterView } from 'vue-router'
+import Nav from '../components/nav'
 export default defineComponent({
   setup() {
     return () => (
-      <RouterView></RouterView>
+      <Nav></Nav>
     )
   }
 })

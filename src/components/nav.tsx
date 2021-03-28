@@ -6,57 +6,48 @@ import { Layout,
 const { Header, Content, Footer, Sider } = Layout
 const { SubMenu } = Menu
 import {
-  PieChartOutlined,
-  DesktopOutlined,
-	UserOutlined,
-  TeamOutlined,
-  FileOutlined,
+	UserOutlined
 } from '@ant-design/icons-vue'
+import { nav } from '../router'
+import { useRouter, RouterView } from 'vue-router'
 export default defineComponent({
 	setup() {
 		const collapsed = ref(false)
-		const selectedKeys= ref<string[]>(['1'])
-    console.log(collapsed.value, selectedKeys)
+    const navList = Object.keys(nav).map(item => {
+      return {
+        name: item,
+        routes: nav[item]
+      }
+    })
+    const selectedKeys= ref<string[]>([navList[0].name])
+    const router = useRouter()
+    const menuClick = (item:any) => {
+      router.push({
+        path: item.path
+      })
+    }
+
 		return () => (
 			<Layout style={{ minHeight: '100vh' }}>
         <Sider v-model={[collapsed.value, 'collapsed']} collapsible>
           <div class="logo" />
           <Menu theme="dark" v-model={[selectedKeys.value,'selectedKeys']} mode="inline">
-            <Menu.Item key={'1'}>
-							<PieChartOutlined />
-							<span>Option 1</span>
-            </Menu.Item>
-            <Menu.Item key={'2'}>
-              <DesktopOutlined />
-              <span>{`Option 2`}</span>
-            </Menu.Item>
-            <SubMenu key="sub1" title={
-							<>
-							<span>
-								<UserOutlined />
-								<span>User</span>
-							</span>
-							</>
-						}>
-              <Menu.Item key={'3'}>Tom</Menu.Item>
-              <Menu.Item key={'4'}>Bill</Menu.Item>
-              <Menu.Item key={'5'}>Alex</Menu.Item>
-            </SubMenu>
-            <SubMenu key="sub2" title={
-							<>
-							<span>
-								<TeamOutlined />
-								<span>Team</span>
-							</span>
-							</>
-						}>
-              <Menu.Item key="6">Team 1</Menu.Item>
-              <Menu.Item key="8">Team 2</Menu.Item>
-            </SubMenu>
-            <Menu.Item key="9">
-              <FileOutlined />
-              <span>File</span>
-            </Menu.Item>
+            {
+              navList.map(item => {
+                return <SubMenu key={item.name} title={
+                  <span>
+                    <UserOutlined />
+                    <span>{item.name}</span>
+                  </span>
+                }>
+                  {item.routes.map(nav => {
+                    return <Menu.Item key={nav.name}>
+                      <div onClick={() =>menuClick(nav)}>{nav.meta.title}</div>
+                    </Menu.Item>
+                  })}
+                </SubMenu>
+              })
+            }
           </Menu>
         </Sider>
         <Layout class="site-layout">
@@ -67,7 +58,7 @@ export default defineComponent({
               <Breadcrumb.Item>Bill</Breadcrumb.Item>
             </Breadcrumb>
             <div class="site-layout-background" style={{ padding: 24, minHeight: 360 }}>
-              Bill is a cat.
+              <RouterView></RouterView>
             </div>
           </Content>
           <Footer style={{ textAlign: 'center' }}>Ant Design ©2018 Created by Ant UED</Footer>
