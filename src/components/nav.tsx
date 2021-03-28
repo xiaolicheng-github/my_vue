@@ -1,4 +1,4 @@
-import { defineComponent, ref } from 'vue'
+import { defineComponent, ref, computed } from 'vue'
 import { Layout,
 	Menu,
 	Breadcrumb
@@ -9,8 +9,9 @@ import {
 	UserOutlined
 } from '@ant-design/icons-vue'
 import { nav } from '../router'
-import { useRouter, RouterView } from 'vue-router'
+import { useRouter, RouterView, useRoute } from 'vue-router'
 export default defineComponent({
+  name: 'Nav',
 	setup() {
 		const collapsed = ref(false)
     const navList = Object.keys(nav).map(item => {
@@ -21,12 +22,19 @@ export default defineComponent({
     })
     const selectedKeys= ref<string[]>([navList[0].name])
     const router = useRouter()
+    const route = useRoute()
     const menuClick = (item:any) => {
       router.push({
         path: item.path
       })
     }
-
+    const navCrumbs = computed(() => {
+      const father: any = route.meta.father
+      const curNav = route.meta.title
+      return [
+        father, curNav
+      ]
+    })
 		return () => (
 			<Layout style={{ minHeight: '100vh' }}>
         <Sider v-model={[collapsed.value, 'collapsed']} collapsible>
@@ -54,8 +62,11 @@ export default defineComponent({
           <Header class="site-layout-background" style={{ padding: 0 }} />
           <Content style={{ margin: '0 16px' }}>
             <Breadcrumb style={{ margin: '16px 0' }}>
-              <Breadcrumb.Item>User</Breadcrumb.Item>
-              <Breadcrumb.Item>Bill</Breadcrumb.Item>
+              {
+                navCrumbs.value.map(item => (
+                  <Breadcrumb.Item>{item}</Breadcrumb.Item>
+                ))
+              }
             </Breadcrumb>
             <div class="site-layout-background" style={{ padding: 24, minHeight: 360 }}>
               <RouterView></RouterView>

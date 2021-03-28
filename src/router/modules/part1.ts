@@ -3,7 +3,7 @@ const routes = [
 	{
 		path: '/part1/demo',
 		name: 'part1Demo',
-		meta: { title: 'demo' },
+		meta: { title: 'demo', father: 'part1' },
 		component: demo
 	}
 ]

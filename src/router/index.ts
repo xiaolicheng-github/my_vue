@@ -21,6 +21,8 @@ const router = createRouter({
 	history: createWebHashHistory(),
 	routes
 })
+
+
 interface Ipart {
 	path: string,
 	name: string,
