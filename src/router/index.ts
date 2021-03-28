@@ -21,13 +21,13 @@ const router = createRouter({
 	history: createWebHashHistory(),
 	routes
 })
-
-
+/* eslint-disable @typescript-eslint/no-explicit-any */
 interface Ipart {
 	path: string,
 	name: string,
-	meta?: any
+	meta: any
 }
+/* eslint-disable @typescript-eslint/no-explicit-any */
 interface Inav {
 	[key: string]: Array<Ipart>
 }

@@ -23,11 +23,13 @@ export default defineComponent({
     const selectedKeys= ref<string[]>([navList[0].name])
     const router = useRouter()
     const route = useRoute()
+    /* eslint-disable @typescript-eslint/no-explicit-any */
     const menuClick = (item:any) => {
       router.push({
         path: item.path
       })
     }
+    /* eslint-disable @typescript-eslint/no-explicit-any */
     const navCrumbs = computed(() => {
       const father: any = route.meta.father
       const curNav = route.meta.title

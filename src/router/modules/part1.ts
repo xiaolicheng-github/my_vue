@@ -1,4 +1,4 @@
-const demo = import('../../page/part1/demo')
+const demo = import('../../page/part1/demo/demo')
 const routes = [
 	{
 		path: '/part1/demo',
